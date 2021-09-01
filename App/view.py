@@ -47,9 +47,9 @@ def initCatalog():
 
     return controller.initCatalog()
 
-def loadArtists():
+def loadArtists(catalog):
 
-     return controller.loadArtists()
+     return controller.loadArtists(catalog)
 """
 Menu principal
 """

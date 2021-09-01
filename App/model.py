@@ -44,7 +44,7 @@ def newCatalog():
     
     catalog["name"] = lt.newList()
 
-    catalog["arkworks"] = lt.newList("SINGLE_LINKED")
+    catalog["artworks"] = lt.newList("SINGLE_LINKED")
 
     return catalog
 
@@ -59,10 +59,10 @@ def addArtist(catalog, artist):
     for artwork in artworks:
         addArtwork(catalog, artwork.strip(), artist)
 
-def addArtwork(catalog, artistname, artwork):
+def addArtwork(catalog, artworkname, artist):
 
     artists = catalog["artists"]
-    posartist = lt.isPresent(artists, artistname)
+    posartist = lt.isPresent(artists, artworkname)
 
     if posartist>0:
         artist = lt.getElement(artists, posartist)
@@ -74,10 +74,10 @@ def addArtwork(catalog, artistname, artwork):
 
 
 # Funciones para creacion de datos
-def newArtist(name):
+def newArtwork(name):
 
     artist = {"name": "", 
-              "artworks": None}
+              "artists": None}
     artist["name"] = name
 
     artist["artworks"] = lt.newList("ARRAY_LIST")
