@@ -34,6 +34,8 @@ se hace la solicitud al controlador para ejecutar la
 operación solicitada
 """
 
+
+
 def printMenu():
     print("Bienvenido")
     print("1- Cargar información en el catálogo")
@@ -41,14 +43,26 @@ def printMenu():
 
 catalog = None
 
+def initCatalog():
+
+    return controller.initCatalog()
+
+def loadArtists():
+
+     return controller.loadArtists()
 """
 Menu principal
 """
+
 while True:
     printMenu()
     inputs = input('Seleccione una opción para continuar\n')
     if int(inputs[0]) == 1:
         print("Cargando información de los archivos ....")
+        catalog = initCatalog()
+        print("....")
+        loadArtists(catalog)
+        print("Artistas Cargados " + str(lt.size(catalog["artists"])))
 
     elif int(inputs[0]) == 2:
         pass
