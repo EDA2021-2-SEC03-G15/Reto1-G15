@@ -42,34 +42,22 @@ def newCatalog():
                "artworks": None,
                }
     
-    catalog["name"] = lt.newList()
+    catalog["artists"] = lt.newList()
 
-    catalog["artworks"] = lt.newList("SINGLE_LINKED")
+    catalog["artworks"] = lt.newList()
 
     return catalog
 
 
 # Funciones para agregar informacion al catalogo
 def addArtist(catalog, artist):
-
+    print(catalog)
     lt.addLast(catalog["artists"], artist)
 
-    artworks = artist["artworks"].split(",")
+def addArtwork(catalog, artwork):
 
-    for artwork in artworks:
-        addArtwork(catalog, artwork.strip(), artist)
-
-def addArtwork(catalog, artworkname, artist):
-
-    artists = catalog["artists"]
-    posartist = lt.isPresent(artists, artworkname)
-
-    if posartist>0:
-        artist = lt.getElement(artists, posartist)
-    else:
-        artist = newArtist(artistname)
-        lt.addLast(artists, artist) 
-    lt.addLast(artist["artworks"], artwork)
+    print(catalog)
+    lt.addLast(catalog["artwork"], artwork)
 
 
 
