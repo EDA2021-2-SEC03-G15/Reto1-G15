@@ -69,15 +69,19 @@ while True:
     if int(inputs[0]) == 1:
         print("Cargando información de los archivos ....")
         catalog = initCatalog()
+
         loadArtists(catalog)
         loadArtworks(catalog)
+         
         print("Artistas Cargados " + str(lt.size(catalog["artists"])))
         print("Artworks cargados " + str(lt.size(catalog["artworks"])))
+
         print("Últimos 3 Artistas")
         i = 2
         while i >= 0:
             print (str(lt.getElement((catalog["artists"]), lt.size(catalog["artists"])-i)))
             i-=1
+        
         print("Ultimos 3 Artworks")
         j = 2
         while j >= 0:
