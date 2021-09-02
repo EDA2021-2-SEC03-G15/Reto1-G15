@@ -50,9 +50,7 @@ def loadArtists(catalog):
         model.addArtist(catalog, artist)
 
 def loadArtworks(catalog):
-
-    print("aaaa")
-
+    
     artworksfiles = cf.data_dir + "Artworks-utf8-large.csv"
     input_file = csv.DictReader(open(artworksfiles, encoding="utf-8"))
     for artwork in input_file:
