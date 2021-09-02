@@ -39,7 +39,12 @@ operación solicitada
 def printMenu():
     print("Bienvenido")
     print("1- Cargar información en el catálogo")
-    print("2- ")
+    print("2- Listar cronológicamente artistas")
+    print("3- Listar cronológicamente artworks")
+    print("4- Clasificar obras de un artista por técnica")
+    print("5- Clasificar obras de un artista por nacionalidad")
+    print("6- Transportar obras")
+    print("7- Proponer exposicion")
 
 catalog = None
 
@@ -50,6 +55,10 @@ def initCatalog():
 def loadArtists(catalog):
 
      return controller.loadArtists(catalog)
+
+def loadArtworks(catalog):
+
+    return controller.loadArtworks(catalog)
 """
 Menu principal
 """
@@ -60,9 +69,21 @@ while True:
     if int(inputs[0]) == 1:
         print("Cargando información de los archivos ....")
         catalog = initCatalog()
-        print("....")
         loadArtists(catalog)
+        loadArtworks(catalog)
         print("Artistas Cargados " + str(lt.size(catalog["artists"])))
+        print("Artworks cargados " + str(lt.size(catalog["artworks"])))
+        print("Últimos 3 Artistas")
+        i = 2
+        while i >= 0:
+            print (str(lt.getElement((catalog["artists"]), lt.size(catalog["artists"])-i)))
+            i-=1
+        print("Ultimos 3 Artworks")
+        j = 2
+        while j >= 0:
+            print (str(lt.getElement((catalog["artworks"]),lt.size(catalog["artworks"])-j)))
+            j-=1
+
 
     elif int(inputs[0]) == 2:
         pass
