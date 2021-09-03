@@ -51,7 +51,7 @@ def newCatalog():
 
 # Funciones para agregar informacion al catalogo
 def addArtist(catalog, artist):
-
+    # Se adiciona el artista a la lista de artistas
     lt.addLast(catalog["artists"], artist)
 
 def addArtwork(catalog, artwork):
@@ -73,5 +73,6 @@ def addArtwork(catalog, artwork):
 # Funciones de consulta
 
 # Funciones utilizadas para comparar elementos dentro de una lista
+
 
 # Funciones de ordenamiento

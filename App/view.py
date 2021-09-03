@@ -75,7 +75,7 @@ while True:
          
         print("Artistas Cargados " + str(lt.size(catalog["artists"])))
         print("Artworks cargados " + str(lt.size(catalog["artworks"])))
-
+        
         print("Últimos 3 Artistas")
         i = 2
         while i >= 0:
@@ -87,7 +87,7 @@ while True:
         while j >= 0:
             print (str(lt.getElement((catalog["artworks"]),lt.size(catalog["artworks"])-j)))
             j-=1
-
+  
 
     elif int(inputs[0]) == 2:
         pass
