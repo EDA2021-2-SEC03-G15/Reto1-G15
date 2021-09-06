@@ -90,7 +90,9 @@ while True:
   
 
     elif int(inputs[0]) == 2:
-        pass
+        print("Digite las fechas inciales y finales a consultar")
+        date1 = int(input("Año inicial: " ))
+        date2 = int(input("Año final: " ))
 
     else:
         sys.exit(0)
