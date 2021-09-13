@@ -48,7 +48,6 @@ def newCatalog():
 
     return catalog
 
-
 # Funciones para agregar informacion al catalogo
 def addArtist(catalog, artist):
     # Se adiciona el artista a la lista de artistas
@@ -61,18 +60,9 @@ def addArtwork(catalog, artwork):
 
 
 # Funciones para creacion de datos
-#def newArtwork(name):
 
- #   artist = {"name": "", 
- #             "artists": None}
-  #  artist["name"] = name
-
-   # artist["artworks"] = lt.newList("ARRAY_LIST")
-
-    #return artist
 # Funciones de consulta
 
 # Funciones utilizadas para comparar elementos dentro de una lista
-
 
 # Funciones de ordenamiento

@@ -23,6 +23,7 @@
 import config as cf
 import model
 import csv
+from DISClib.ADT import list as lt
 
 
 """
@@ -49,7 +50,7 @@ def loadArtists(catalog):
     """
     Carga los artistas del archivo.
     """
-    artistsfiles = cf.data_dir + "Artists-utf8-large.csv"
+    artistsfiles = cf.data_dir + "Artists-utf8-small.csv"
     input_file = csv.DictReader(open(artistsfiles, encoding="utf-8"))
     for artist in input_file:
         model.addArtist(catalog, artist)
@@ -63,8 +64,26 @@ def loadArtworks(catalog):
     for artwork in input_file:
         model.addArtwork(catalog, artwork)
 
+def ordenarArtistas(catalog, inicio, fin):
+
+    rango_artistas = lt.newList(datastructure="LINKED_LIST")
+
+    i = 0
+    while i<=lt.size(catalog["artists"]):
+
+        artista = lt.getElement(catalog["artists"], i)
+        fechaInicial = int(lt.getElement(catalog["artists"], i)["BeginDate"] )
+
+        if fechaInicial != 0:
+            if (fechaInicial>= inicio) and (fechaInicial <= fin):
+                lt.addLast(rango_artistas, artista)
+                print(artista)
+
+        i+=1
+    
+    
+    
 
 # Funciones de ordenamiento
-
 
 # Funciones de consulta sobre el catálogo

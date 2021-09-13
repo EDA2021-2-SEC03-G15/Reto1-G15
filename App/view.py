@@ -59,6 +59,9 @@ def loadArtists(catalog):
 def loadArtworks(catalog):
 
     return controller.loadArtworks(catalog)
+
+def ordenarArtistas(catalog, inicio, fin):
+    return controller.ordenarArtistas(catalog, inicio, fin)
 """
 Menu principal
 """
@@ -90,9 +93,13 @@ while True:
   
 
     elif int(inputs[0]) == 2:
+
         print("Digite las fechas inciales y finales a consultar")
         date1 = int(input("Año inicial: " ))
         date2 = int(input("Año final: " ))
+        controller.ordenarArtistas(catalog, date1, date2)
+
+
 
     else:
         sys.exit(0)
