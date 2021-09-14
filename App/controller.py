@@ -64,26 +64,36 @@ def loadArtworks(catalog):
     for artwork in input_file:
         model.addArtwork(catalog, artwork)
 
-def ordenarArtistas(catalog, inicio, fin):
+##crea una lista de artistas nacidos entre dos fechas dadas por parametro
 
-    rango_artistas = lt.newList(datastructure="LINKED_LIST")
+def listarArtistas(catalog, inicio, fin):
+
+    rango_artistas = lt.newList(datastructure="ARRAY_LIST")
 
     i = 0
     while i<=lt.size(catalog["artists"]):
 
         artista = lt.getElement(catalog["artists"], i)
         fechaInicial = int(lt.getElement(catalog["artists"], i)["BeginDate"] )
-
         if fechaInicial != 0:
             if (fechaInicial>= inicio) and (fechaInicial <= fin):
                 lt.addLast(rango_artistas, artista)
-                print(artista)
-
         i+=1
-    
-    
-    
+
+    lista = []
+
+    for i in range (0, lt.size(rango_artistas)):
+        lista.append(lt.getElement(rango_artistas, i))
+
+    return lista
+        
 
 # Funciones de ordenamiento
+
+def ordenarArtistas(catalog, inicio, fin):
+
+    return model.ordenarArtistas(listarArtistas(catalog, inicio, fin))
+
+
 
 # Funciones de consulta sobre el catálogo

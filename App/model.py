@@ -26,6 +26,7 @@
 
 
 import config as cf
+import controller
 from DISClib.ADT import list as lt
 from DISClib.Algorithms.Sorting import shellsort as sa
 assert cf
@@ -57,12 +58,33 @@ def addArtwork(catalog, artwork):
 
     lt.addLast(catalog["artworks"], artwork)
 
-
-
 # Funciones para creacion de datos
 
 # Funciones de consulta
 
 # Funciones utilizadas para comparar elementos dentro de una lista
+def compareBeginDate(artist1, artist2):
+    
+    return (int(artist1["BeginDate"])>int(artist2["BeginDate"]))
 
 # Funciones de ordenamiento
+
+##Ordena los artistas por el metodo quicksort
+def ordenarArtistas(lista):
+
+    tamaño = len(lista)
+    if tamaño <= 1:
+        return lista
+    else:
+        pivot = lista.pop()
+
+    mayores = []
+    menores = []
+
+    for artist in lista:
+        if compareBeginDate(artist, pivot) == True:
+            mayores.append(artist)
+        else:
+            menores.append(artist)
+
+    return ordenarArtistas(menores) + [pivot] + ordenarArtistas(mayores)

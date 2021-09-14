@@ -22,6 +22,8 @@
 
 import config as cf
 import sys
+default_limit = 1000
+sys.setrecursionlimit(default_limit*10)
 import controller
 from DISClib.ADT import list as lt
 assert cf
@@ -60,7 +62,12 @@ def loadArtworks(catalog):
 
     return controller.loadArtworks(catalog)
 
+def listarArtistas(catalog, inicio, fin):
+    
+    return controller.listarArtistas(catalog, inicio, fin)
+
 def ordenarArtistas(catalog, inicio, fin):
+
     return controller.ordenarArtistas(catalog, inicio, fin)
 """
 Menu principal
@@ -97,10 +104,19 @@ while True:
         print("Digite las fechas inciales y finales a consultar")
         date1 = int(input("Año inicial: " ))
         date2 = int(input("Año final: " ))
-        controller.ordenarArtistas(catalog, date1, date2)
+        lista = ordenarArtistas(catalog, date1, date2)
 
-
-
+        print("Hay ", len(lista), "artistas en el rango de ", date1, "y ", date2)
+        print("================================================================")
+        print("Los primeros 3 y ultimos 3 artistas del rango son:")
+        for i in range(0, len(lista)):
+            if i < 3:
+                print("--------------------------------------------------------")
+                print (lista[i])
+        for i in range (len(lista)-3, len(lista)):
+            if i <= len(lista):
+                print("--------------------------------------------------------")
+                print(lista[i])
     else:
         sys.exit(0)
 sys.exit(0)
