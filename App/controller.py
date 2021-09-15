@@ -24,8 +24,7 @@ import config as cf
 import model
 import csv
 from DISClib.ADT import list as lt
-from DISClib.ADT import stack as sdt
-from DISClib.Algorithms.Sorting import insertionsort as ins
+from DISClib.Algorithms.Sorting import selectionsort as merge
 
 """
 El controlador se encarga de mediar entre la vista y el modelo.
@@ -51,7 +50,7 @@ def loadArtists(catalog):
     """
     Carga los artistas del archivo.
     """
-    artistsfiles = cf.data_dir + "Artists-utf8-large.csv"
+    artistsfiles = cf.data_dir + "Artists-utf8-small.csv"
     input_file = csv.DictReader(open(artistsfiles, encoding="utf-8"))
     for artist in input_file:
         model.addArtist(catalog, artist)
@@ -60,7 +59,7 @@ def loadArtworks(catalog):
     """
     Carga las obras del archivo.
     """
-    artworksfiles = cf.data_dir + "Artworks-utf8-large.csv"
+    artworksfiles = cf.data_dir + "Artworks-utf8-small.csv"
     input_file = csv.DictReader(open(artworksfiles, encoding="utf-8"))
     for artwork in input_file:
         model.addArtwork(catalog, artwork)
@@ -69,7 +68,7 @@ def loadArtworks(catalog):
 
 def listarArtistas(catalog, inicio, fin):
 
-    rango_artistas = sdt.newStack(datastructure="SINGLE_LINKED")
+    rango_artistas = lt.newList(datastructure="SINGLE_LINKED")
 
     i = 0
     while i<=lt.size(catalog["artists"]):
@@ -78,17 +77,19 @@ def listarArtistas(catalog, inicio, fin):
         fechaInicial = int(lt.getElement(catalog["artists"], i)["BeginDate"] )
         if fechaInicial != 0:
             if (fechaInicial>= inicio) and (fechaInicial <= fin):
-                sdt.push(rango_artistas, artista)
+                lt.addLast(rango_artistas, artista)
         i+=1
 
     return rango_artistas
         
-
+def compareBeginDate(artist1, artist2):
+    
+    return (int(artist1["BeginDate"])>int(artist2["BeginDate"]))
 # Funciones de ordenamiento
 
 def ordenarArtistas(catalog, inicio, fin):
 
-    return ins.sort(listarArtistas(catalog, inicio, fin), model.compareBeginDate)
+    return merge.sort(listarArtistas(catalog, inicio, fin), compareBeginDate)
 
 def sortArtworksByDateAcquired(catalog, size, alg):
 

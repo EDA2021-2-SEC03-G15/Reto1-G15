@@ -153,7 +153,8 @@ while True:
         menuOrd()
         inputOrd = int(input("Seleccione el algoritmo: \n"))
         lista_ordenada = sortArtworksByDateAcquired(catalog, size, inputOrd)
-        print(lista_ordenada)
+        x,y = lista_ordenada
+        print(x)
         
     else:
         sys.exit(0)

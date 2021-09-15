@@ -25,10 +25,12 @@
  """
 
 
+from decimal import Rounded
 from DISClib.DataStructures.arraylist import subList
 import config as cf
 import controller
 import time
+from datetime import date
 from DISClib.ADT import list as lt
 from DISClib.Algorithms.Sorting import insertionsort as ins
 from DISClib.Algorithms.Sorting import mergesort as mg
@@ -77,19 +79,20 @@ def compareBeginDate(artist1, artist2):
     
     return (int(artist1["BeginDate"])>int(artist2["BeginDate"]))
 
+
 def cmpArtWorkByDateAcquired(artwork1, artwork2):
 
     
-    fecha1 = artwork1["DateAcquired"]
-    fecha2 = artwork2["DateAcquired"]
-        
-    if fecha1 == "" and fecha2 == "":
+    fecha1 = artwork1['DateAcquired']
+    fecha2 = artwork2['DateAcquired']
 
-        fecha1 = "0000-0-0"
-        fecha2 = "0000-0-0"
+    if fecha1 == "":
+        fecha1 = '1700-01-01'
+    if fecha2 == "": 
+        fecha2 = '1700-01-01'
 
-    dt1 = datetime.datetime.strptime(fecha1, "%Y-%m-%d")
-    dt2 = datetime.datetime.strptime(fecha2, "%Y-%m-%d")
+    dt1 = date.fromisoformat(fecha1)
+    dt2 = date.fromisoformat(fecha2)
 
     return (dt1<dt2)
 # Funciones de ordenamiento
@@ -144,5 +147,5 @@ def sortByDate(catalog, size, alg):
         stop_time = time.process_time()
         elapsedtime += (stop_time - start_time)*1000
 
-    return elapsedtime, sorted
+    return round(elapsedtime, 2), sorted
 
