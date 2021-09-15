@@ -24,7 +24,8 @@ import config as cf
 import model
 import csv
 from DISClib.ADT import list as lt
-
+from DISClib.ADT import stack as sdt
+from DISClib.Algorithms.Sorting import insertionsort as ins
 
 """
 El controlador se encarga de mediar entre la vista y el modelo.
@@ -68,7 +69,7 @@ def loadArtworks(catalog):
 
 def listarArtistas(catalog, inicio, fin):
 
-    rango_artistas = lt.newList(datastructure="ARRAY_LIST")
+    rango_artistas = sdt.newStack(datastructure="SINGLE_LINKED")
 
     i = 0
     while i<=lt.size(catalog["artists"]):
@@ -77,22 +78,17 @@ def listarArtistas(catalog, inicio, fin):
         fechaInicial = int(lt.getElement(catalog["artists"], i)["BeginDate"] )
         if fechaInicial != 0:
             if (fechaInicial>= inicio) and (fechaInicial <= fin):
-                lt.addLast(rango_artistas, artista)
+                sdt.push(rango_artistas, artista)
         i+=1
 
-    lista = []
-
-    for i in range (0, lt.size(rango_artistas)):
-        lista.append(lt.getElement(rango_artistas, i))
-
-    return lista
+    return rango_artistas
         
 
 # Funciones de ordenamiento
 
 def ordenarArtistas(catalog, inicio, fin):
 
-    return model.ordenarArtistas(listarArtistas(catalog, inicio, fin))
+    return ins.sort(listarArtistas(catalog, inicio, fin), model.compareBeginDate)
 
 def sortArtworksByDateAcquired(catalog, size, alg):
 

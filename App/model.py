@@ -34,6 +34,7 @@ from DISClib.Algorithms.Sorting import insertionsort as ins
 from DISClib.Algorithms.Sorting import mergesort as mg
 from DISClib.Algorithms.Sorting import quicksort as qc
 from DISClib.Algorithms.Sorting import shellsort as sh
+from DISClib.ADT import stack as sdt
 assert cf
 import datetime
 
@@ -65,6 +66,9 @@ def addArtwork(catalog, artwork):
     lt.addLast(catalog["artworks"], artwork)
 
 # Funciones para creacion de datos
+
+
+
 
 # Funciones de consulta
 
