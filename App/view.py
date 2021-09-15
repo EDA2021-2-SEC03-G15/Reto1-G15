@@ -133,19 +133,19 @@ while True:
         print("Digite las fechas inciales y finales a consultar")
         date1 = int(input("Año inicial: " ))
         date2 = int(input("Año final: " ))
-        lista = ordenarArtistas(catalog, date1, date2)
+        lista = listarArtistas(catalog, date1, date2)
 
-        print("Hay ", len(lista), "artistas en el rango de ", date1, "y ", date2)
+        print("Hay ", lt.size(lista), "artistas en el rango de ", date1, "y ", date2)
         print("================================================================")
         print("Los primeros 3 y ultimos 3 artistas del rango son:")
-        for i in range(0, len(lista)):
+        for i in range(0, lt.size(lista)):
             if i < 3:
                 print("--------------------------------------------------------")
-                print (lista[i])
-        for i in range (len(lista)-3, len(lista)):
-            if i <= len(lista):
+                print (lt.getElement(lista, i))
+        for i in range (lt.size(lista)-3, lt.size(lista)):
+            if i <= lt.size(lista):
                 print("--------------------------------------------------------")
-                print(lista[i])
+                print(lt.getElement(lista, i))
 
     elif int(inputs[0]) == 3:
 
