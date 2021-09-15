@@ -55,7 +55,7 @@ def loadArtists(catalog):
     for artist in input_file:
         model.addArtist(catalog, artist)
 
-    model.ordenarArtistas(catalog["artists"])
+
 
 def loadArtworks(catalog):
     """
@@ -69,6 +69,8 @@ def loadArtworks(catalog):
 ##crea una lista de artistas nacidos entre dos fechas dadas por parametro
 
 def listarArtistas(catalog, inicio, fin):
+    
+    model.ordenarArtistas(catalog["artists"])
 
     rango_artistas = lt.newList(datastructure="SINGLE_LINKED")
 

@@ -138,8 +138,8 @@ while True:
         print("Hay ", lt.size(lista), "artistas en el rango de ", date1, "y ", date2)
         print("================================================================")
         print("Los primeros 3 y ultimos 3 artistas del rango son:")
-        for i in range(0, lt.size(lista)):
-            if i < 3:
+        for i in range(1, lt.size(lista)):
+            if i < 4:
                 print("--------------------------------------------------------")
                 print (lt.getElement(lista, i))
         for i in range (lt.size(lista)-3, lt.size(lista)):
