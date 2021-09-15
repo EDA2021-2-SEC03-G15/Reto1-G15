@@ -55,6 +55,8 @@ def loadArtists(catalog):
     for artist in input_file:
         model.addArtist(catalog, artist)
 
+    model.ordenarArtistas(catalog["artists"])
+
 def loadArtworks(catalog):
     """
     Carga las obras del archivo.
@@ -70,14 +72,16 @@ def listarArtistas(catalog, inicio, fin):
 
     rango_artistas = lt.newList(datastructure="SINGLE_LINKED")
 
-    i = 0
-    while i<=lt.size(catalog["artists"]):
+    i = 1
+    c = False
+    while i<=lt.size(catalog["artists"]) and not c:
 
         artista = lt.getElement(catalog["artists"], i)
-        fechaInicial = int(lt.getElement(catalog["artists"], i)["BeginDate"] )
-        if fechaInicial != 0:
-            if (fechaInicial>= inicio) and (fechaInicial <= fin):
-                lt.addLast(rango_artistas, artista)
+        if int(artista["BeginDate"]) > fin:
+            c = True
+        
+        if int(artista["BeginDate"]) >= inicio and int(artista["BeginDate"]) <= fin:
+            lt.addLast(rango_artistas, artista)
         i+=1
 
     return rango_artistas
@@ -86,10 +90,6 @@ def compareBeginDate(artist1, artist2):
     
     return (int(artist1["BeginDate"])>int(artist2["BeginDate"]))
 # Funciones de ordenamiento
-
-def ordenarArtistas(catalog, inicio, fin):
-
-    return merge.sort(listarArtistas(catalog, inicio, fin), compareBeginDate)
 
 def sortArtworksByDateAcquired(catalog, size, alg):
 

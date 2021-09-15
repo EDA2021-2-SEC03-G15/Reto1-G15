@@ -69,15 +69,12 @@ def addArtwork(catalog, artwork):
 
 # Funciones para creacion de datos
 
-
-
-
 # Funciones de consulta
 
 # Funciones utilizadas para comparar elementos dentro de una lista
 def compareBeginDate(artist1, artist2):
     
-    return (int(artist1["BeginDate"])>int(artist2["BeginDate"]))
+    return (int(artist1["BeginDate"])<int(artist2["BeginDate"]))
 
 
 def cmpArtWorkByDateAcquired(artwork1, artwork2):
@@ -100,22 +97,7 @@ def cmpArtWorkByDateAcquired(artwork1, artwork2):
 ##Ordena los artistas por el metodo quicksort
 def ordenarArtistas(lista):
 
-    tamaño = len(lista)
-    if tamaño <= 1:
-        return lista
-    else:
-        pivot = lista.pop()
-
-    mayores = []
-    menores = []
-
-    for artist in lista:
-        if compareBeginDate(artist, pivot) == True:
-            mayores.append(artist)
-        else:
-            menores.append(artist)
-
-    return ordenarArtistas(menores) + [pivot] + ordenarArtistas(mayores)
+    return mg.sort(lista, compareBeginDate)
 
 def sortByDate(catalog, size, alg):
 
