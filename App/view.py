@@ -48,11 +48,23 @@ def printMenu():
     print("6- Transportar obras")
     print("7- Proponer exposicion")
 
+def menuTAD():
+    print("Seleccione el tipo de TAD sobre el que quiere cargar los archivos")
+    print("1. Arraylist")
+    print("2. Single Linked List")
+
+def menuOrd():
+    print("Seleccione el algoritmo de ordenamiento que desea usar:")
+    print("1. Insertion")
+    print("2. Mergesort")
+    print("3. Quicksort")
+    print("4. Shellsort")
+
 catalog = None
 
-def initCatalog():
+def initCatalog(tipo):
 
-    return controller.initCatalog()
+    return controller.initCatalog(tipo)
 
 def loadArtists(catalog):
 
@@ -69,16 +81,33 @@ def listarArtistas(catalog, inicio, fin):
 def ordenarArtistas(catalog, inicio, fin):
 
     return controller.ordenarArtistas(catalog, inicio, fin)
+
+def sortArtworksByDateAcquired(catalog, size, alg):
+
+    return controller.sortArtworksByDateAcquired(catalog, size, alg)
 """
 Menu principal
 """
 
+
 while True:
     printMenu()
     inputs = input('Seleccione una opción para continuar\n')
+
     if int(inputs[0]) == 1:
+
+        menuTAD()
+        inputATD = input("Seleccione: \n")
+
         print("Cargando información de los archivos ....")
-        catalog = initCatalog()
+        if int(inputATD[0]) == 1:
+
+            catalog = initCatalog("ARRAY_LIST")
+        
+        else:
+
+            catalog = initCatalog("SINGLE_LINKED")
+
 
         loadArtists(catalog)
         loadArtworks(catalog)
@@ -117,6 +146,15 @@ while True:
             if i <= len(lista):
                 print("--------------------------------------------------------")
                 print(lista[i])
+
+    elif int(inputs[0]) == 3:
+
+        size = int(input("Seleccione el tamaño de la muestra: \n"))
+        menuOrd()
+        inputOrd = int(input("Seleccione el algoritmo: \n"))
+        lista_ordenada = sortArtworksByDateAcquired(catalog, size, inputOrd)
+        print(lista_ordenada)
+        
     else:
         sys.exit(0)
 sys.exit(0)

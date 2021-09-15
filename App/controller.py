@@ -32,9 +32,9 @@ El controlador se encarga de mediar entre la vista y el modelo.
 
 # Inicialización del Catálogo de artistas
 
-def initCatalog():
+def initCatalog(tipo):
 
-    catalog = model.newCatalog()
+    catalog = model.newCatalog(tipo)
     return catalog
 
 
@@ -50,7 +50,7 @@ def loadArtists(catalog):
     """
     Carga los artistas del archivo.
     """
-    artistsfiles = cf.data_dir + "Artists-utf8-small.csv"
+    artistsfiles = cf.data_dir + "Artists-utf8-large.csv"
     input_file = csv.DictReader(open(artistsfiles, encoding="utf-8"))
     for artist in input_file:
         model.addArtist(catalog, artist)
@@ -94,6 +94,8 @@ def ordenarArtistas(catalog, inicio, fin):
 
     return model.ordenarArtistas(listarArtistas(catalog, inicio, fin))
 
+def sortArtworksByDateAcquired(catalog, size, alg):
 
+    return model.sortByDate(catalog, size, alg)
 
 # Funciones de consulta sobre el catálogo

@@ -25,11 +25,17 @@
  """
 
 
+from DISClib.DataStructures.arraylist import subList
 import config as cf
 import controller
+import time
 from DISClib.ADT import list as lt
-from DISClib.Algorithms.Sorting import shellsort as sa
+from DISClib.Algorithms.Sorting import insertionsort as ins
+from DISClib.Algorithms.Sorting import mergesort as mg
+from DISClib.Algorithms.Sorting import quicksort as qc
+from DISClib.Algorithms.Sorting import shellsort as sh
 assert cf
+import datetime
 
 """
 Se define la estructura de un catálogo de videos. El catálogo tendrá dos listas, una para los videos, otra para las categorias de
@@ -37,15 +43,15 @@ los mismos.
 """
 
 # Construccion de modelos
-def newCatalog():
+def newCatalog(tipo):
 
     catalog = {"artists":None, 
                "artworks": None,
                }
     
-    catalog["artists"] = lt.newList()
+    catalog["artists"] = lt.newList(tipo)
 
-    catalog["artworks"] = lt.newList()
+    catalog["artworks"] = lt.newList(tipo)
 
     return catalog
 
@@ -67,6 +73,21 @@ def compareBeginDate(artist1, artist2):
     
     return (int(artist1["BeginDate"])>int(artist2["BeginDate"]))
 
+def cmpArtWorkByDateAcquired(artwork1, artwork2):
+
+    
+    fecha1 = artwork1["DateAcquired"]
+    fecha2 = artwork2["DateAcquired"]
+        
+    if fecha1 == "" and fecha2 == "":
+
+        fecha1 = "0000-0-0"
+        fecha2 = "0000-0-0"
+
+    dt1 = datetime.datetime.strptime(fecha1, "%Y-%m-%d")
+    dt2 = datetime.datetime.strptime(fecha2, "%Y-%m-%d")
+
+    return (dt1<dt2)
 # Funciones de ordenamiento
 
 ##Ordena los artistas por el metodo quicksort
@@ -88,3 +109,36 @@ def ordenarArtistas(lista):
             menores.append(artist)
 
     return ordenarArtistas(menores) + [pivot] + ordenarArtistas(mayores)
+
+def sortByDate(catalog, size, alg):
+
+    sub_list = lt.subList(catalog["artworks"], 1, size)
+    sub_list = sub_list.copy()
+    elapsedtime = 0
+
+    if alg == 1:
+        start_time = time.process_time()
+        sorted = ins.sort(sub_list, cmpArtWorkByDateAcquired)
+        stop_time = time.process_time()
+        elapsedtime += (stop_time - start_time)*1000
+    
+    elif alg == 2:
+        start_time = time.process_time()
+        sorted = mg.sort(sub_list, cmpArtWorkByDateAcquired)
+        stop_time = time.process_time()
+        elapsedtime += (stop_time - start_time)*1000
+
+    elif alg == 3:
+        start_time = time.process_time()
+        sorted = qc.sort(sub_list, cmpArtWorkByDateAcquired)
+        stop_time = time.process_time()
+        elapsedtime += (stop_time - start_time)*1000
+
+    elif alg == 4:        
+        start_time = time.process_time()
+        sorted = sh.sort(sub_list, cmpArtWorkByDateAcquired)
+        stop_time = time.process_time()
+        elapsedtime += (stop_time - start_time)*1000
+
+    return elapsedtime, sorted
+
