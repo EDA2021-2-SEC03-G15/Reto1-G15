@@ -47,6 +47,7 @@ def printMenu():
     print("5- Clasificar obras de un artista por nacionalidad")
     print("6- Transportar obras")
     print("7- Proponer exposicion")
+    print("0- Salir")
 
 def menuTAD():
     print("Seleccione el tipo de TAD sobre el que quiere cargar los archivos")
