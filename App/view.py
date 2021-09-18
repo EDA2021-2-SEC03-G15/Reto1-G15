@@ -190,7 +190,7 @@ while True:
         for i in obras_tecnicaUsada:
             x =  str(i["Title"] + ", " + i["Date"] + ", " + i["Medium"] + ", " + i['Dimensions'])
             print(x)
-            print("---------------------------------------------------------")
+            print('---------------------------------------------------------')
 
     else:
         sys.exit(0)
