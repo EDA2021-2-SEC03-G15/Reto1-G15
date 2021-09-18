@@ -86,6 +86,11 @@ def ordenarArtistas(catalog, inicio, fin):
 def sortArtworksByDateAcquired(catalog, alg, inicio, fin):
 
     return controller.sortArtworksByDateAcquired(catalog, alg, inicio, fin)
+
+def sortArtworksByCID(catalog, nombre):
+
+    return controller.sortArtworksByCID(catalog, nombre)
+
 """
 Menu principal
 """
@@ -169,7 +174,24 @@ while True:
             if i <= lt.size(lista_ordenada):
                 print("--------------------------------------------------------")
                 print(lt.getElement(lista_ordenada, i))
-        
+
+    elif int(inputs[0]) == 4:  
+
+        nombre = input("Inserte el nombre del artista a consultar: " )
+        obras_Artista = sortArtworksByCID(catalog, nombre)
+        cantidadObras, tecnicas, tecnica_mas_usada, obras_tecnicaUsada = obras_Artista
+        print("---------------------------------------------------------")
+        print("---------------------------------------------------------")
+        print("Informacion encontrada para al autor " + nombre)
+        print("Cantidad obras :", cantidadObras)
+        print("Tecnicas :", tecnicas)
+        print("Tecnica mas usada :", tecnica_mas_usada)
+        print("Obras con tecnica mas usada :")
+        for i in obras_tecnicaUsada:
+            x =  str(i["Title"] + ", " + i["Date"] + ", " + i["Medium"] + ", " + i['Dimensions'])
+            print(x)
+            print("---------------------------------------------------------")
+
     else:
         sys.exit(0)
 sys.exit(0)

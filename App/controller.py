@@ -50,7 +50,7 @@ def loadArtists(catalog):
     """
     Carga los artistas del archivo.
     """
-    artistsfiles = cf.data_dir + "Artists-utf8-large.csv"
+    artistsfiles = cf.data_dir + "Artists-utf8-small.csv"
     input_file = csv.DictReader(open(artistsfiles, encoding="utf-8"))
     for artist in input_file:
         model.addArtist(catalog, artist)
@@ -61,10 +61,12 @@ def loadArtworks(catalog):
     """
     Carga las obras del archivo.
     """
-    artworksfiles = cf.data_dir + "Artworks-utf8-large.csv"
+    artworksfiles = cf.data_dir + "Artworks-utf8-small.csv"
     input_file = csv.DictReader(open(artworksfiles, encoding="utf-8"))
     for artwork in input_file:
         model.addArtwork(catalog, artwork)
+
+
 
 ##crea una lista de artistas nacidos entre dos fechas dadas por parametro
 
@@ -114,3 +116,20 @@ def sortArtworksByDateAcquired(catalog, alg, inicio, fin):
     return rango_artworks
 
 # Funciones de consulta sobre el catálogo
+
+def sortArtworksByCID(catalog, nombre):
+
+    artworks = (catalog["artworks"])
+    ID_Artista = model.FindIDArtist(catalog, nombre)
+    obrasArtista = lt.newList(datastructure="ARRAY_LIST")
+    c = False
+    for i in range(lt.size(artworks)):
+        artwork = lt.getElement(artworks, i)
+        if artwork['ConstituentID'][1:-1] == ID_Artista:
+            lt.addLast(obrasArtista, artwork)
+    cantidad_obras = lt.size(obrasArtista)
+    tecnicas = model.contar_tecnicas(obrasArtista)
+    obramayor = model.tecnica_mas_usada(obrasArtista)
+    obras_tecnicaUsada = model.obras_tecnicaUsada(obrasArtista, obramayor)
+
+    return cantidad_obras, tecnicas, obramayor, obras_tecnicaUsada
