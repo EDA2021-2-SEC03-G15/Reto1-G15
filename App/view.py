@@ -167,7 +167,7 @@ while True:
                 print (lt.getElement(lista_ordenada, i))
         for i in range (lt.size(lista_ordenada)-3, lt.size(lista_ordenada)):
             if i <= lt.size(lista_ordenada):
-                print("--------------------------------------------------------")
+                print('--------------------------------------------------------')
                 print(lt.getElement(lista_ordenada, i))
         
     else:
