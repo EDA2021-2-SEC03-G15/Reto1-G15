@@ -83,9 +83,9 @@ def ordenarArtistas(catalog, inicio, fin):
 
     return controller.ordenarArtistas(catalog, inicio, fin)
 
-def sortArtworksByDateAcquired(catalog, size, alg):
+def sortArtworksByDateAcquired(catalog, alg, inicio, fin):
 
-    return controller.sortArtworksByDateAcquired(catalog, size, alg)
+    return controller.sortArtworksByDateAcquired(catalog, alg, inicio, fin)
 """
 Menu principal
 """
@@ -97,7 +97,9 @@ while True:
 
     if int(inputs[0]) == 1:
 
-        menuTAD()
+        catalog = initCatalog("ARRAY_LIST")  
+
+        """menuTAD()
         inputATD = input("Seleccione: \n")
 
         print("Cargando información de los archivos ....")
@@ -107,7 +109,7 @@ while True:
         
         else:
 
-            catalog = initCatalog("SINGLE_LINKED")
+            catalog = initCatalog("SINGLE_LINKED")"""
 
 
         loadArtists(catalog)
@@ -150,12 +152,23 @@ while True:
 
     elif int(inputs[0]) == 3:
 
-        size = int(input("Seleccione el tamaño de la muestra: \n"))
-        menuOrd()
-        inputOrd = int(input("Seleccione el algoritmo: \n"))
-        lista_ordenada = sortArtworksByDateAcquired(catalog, size, inputOrd)
-        x,y = lista_ordenada
-        print(x)
+#        size = int(input("Seleccione el tamaño de la muestra: \n"))
+#        menuOrd()
+#        inputOrd = int(input("Seleccione el algoritmo: \n"))
+        date1 = (input("Fecha inicial (YYYY-MM-DD): " ))
+        date2 = (input("Fecha final (YYYY-MM-DD): " ))
+        lista_ordenada = sortArtworksByDateAcquired(catalog, 2, date1, date2)
+        print("Hay ", lt.size(lista_ordenada), "artworks en el rango de ", date1, "y ", date2)
+        print("================================================================")
+        print("Los primeros 3 y ultimos 3 artworks del rango son:")
+        for i in range(1, lt.size(lista_ordenada)):
+            if i < 4:
+                print("--------------------------------------------------------")
+                print (lt.getElement(lista_ordenada, i))
+        for i in range (lt.size(lista_ordenada)-3, lt.size(lista_ordenada)):
+            if i <= lt.size(lista_ordenada):
+                print("--------------------------------------------------------")
+                print(lt.getElement(lista_ordenada, i))
         
     else:
         sys.exit(0)

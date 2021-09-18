@@ -93,8 +93,24 @@ def compareBeginDate(artist1, artist2):
     return (int(artist1["BeginDate"])>int(artist2["BeginDate"]))
 # Funciones de ordenamiento
 
-def sortArtworksByDateAcquired(catalog, size, alg):
+def sortArtworksByDateAcquired(catalog, alg, inicio, fin):
 
-    return model.sortByDate(catalog, size, alg)
+    x = model.sortByDate(catalog, alg)
+
+    rango_artworks = lt.newList(datastructure="SINGLE_LINKED")
+
+    i = 1
+    c = False
+    while i<=lt.size(x) and not c:
+
+        artwork = lt.getElement(x, i)
+        if (artwork["DateAcquired"]) > fin:
+            c = True
+        
+        if (artwork["DateAcquired"]) >= inicio and (artwork["DateAcquired"]) <= fin:
+            lt.addLast(rango_artworks, artwork)
+        i+=1
+
+    return rango_artworks
 
 # Funciones de consulta sobre el catálogo

@@ -25,6 +25,7 @@
  """
 
 
+from DISClib.ADT.indexminpq import size
 from decimal import Rounded
 from DISClib.DataStructures.arraylist import subList
 import config as cf
@@ -99,9 +100,9 @@ def ordenarArtistas(lista):
 
     return mg.sort(lista, compareBeginDate)
 
-def sortByDate(catalog, size, alg):
+def sortByDate(catalog, alg):
 
-    sub_list = lt.subList(catalog["artworks"], 1, size)
+    sub_list = lt.subList(catalog["artworks"], 1, (lt.size(catalog["artworks"])))
     sub_list = sub_list.copy()
     elapsedtime = 0
 
@@ -129,5 +130,6 @@ def sortByDate(catalog, size, alg):
         stop_time = time.process_time()
         elapsedtime += (stop_time - start_time)*1000
 
-    return round(elapsedtime, 2), sorted
+
+    return sorted
 
