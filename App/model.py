@@ -25,9 +25,10 @@
  """
 
 
+from DISClib.ADT.queue import newQueue
 from DISClib.ADT.indexminpq import size
 from decimal import Rounded
-from DISClib.DataStructures.arraylist import subList
+from DISClib.DataStructures.arraylist import newList, subList
 import config as cf
 import controller
 import time
@@ -38,6 +39,7 @@ from DISClib.Algorithms.Sorting import mergesort as mg
 from DISClib.Algorithms.Sorting import quicksort as qc
 from DISClib.Algorithms.Sorting import shellsort as sh
 from DISClib.ADT import stack as sdt
+from DISClib.ADT import queue as q
 assert cf
 import datetime
 
@@ -71,6 +73,67 @@ def addArtwork(catalog, artwork):
 # Funciones para creacion de datos
 
 # Funciones de consulta
+def FindIDArtist(catalog, nombre):
+    
+    artistas = catalog["artists"]
+    c = False
+    while c == False:
+        for i in range(lt.size(artistas)):
+            x = lt.getElement(artistas, i)
+            if x['DisplayName'] == nombre:
+                IDArtista = x['ConstituentID']
+                c = True
+    
+    return IDArtista
+
+def contar_tecnicas(obrasArtista):
+
+    tecnicas = lt.newList(datastructure="ARRAY_LIST")
+    for i in range(lt.size(obrasArtista)):
+        artwork = lt.getElement(obrasArtista, i)
+        if lt.isPresent(tecnicas, artwork["Medium"]) == 0:
+            lt.addLast(tecnicas, artwork["Medium"])
+    tecnicas = lt.size(tecnicas)
+
+    return tecnicas
+
+def tecnica_mas_usada(obrasArtista):
+
+    tecnica_mas_usada = lt.newList(datastructure="ARRAY_LIST")
+    obras = obrasArtista["elements"]
+    dic = {}
+    x = ""
+    for obra in range(len(obras)):
+        iguales = 0
+        #(obras[obra]["Medium"])
+        for obra1 in range(len(obras)):
+            if obras[obra]["Medium"] == obras[obra1]["Medium"]:
+                iguales += 1   
+        dic[obras[obra]["Medium"]] = iguales
+    mayor = 0 
+    obramayor = ""    
+    for llave in dic:
+        if dic[llave] > mayor:
+           mayor = dic[llave]
+           obramayor = llave
+    letra = {obramayor:mayor} 
+
+    return obramayor
+     
+def obras_tecnicaUsada(obrasArtista, obramayor):
+    obrasA = obrasArtista["elements"]
+    obras = lt.newList(datastructure='ARRAY_LIST')
+
+    for i in range(len(obrasA)):
+        if obrasA[i]["Medium"] == obramayor:
+            lt.addLast(obras, obrasA[i])
+    obrasTecnica = obras["elements"]
+    return obrasTecnica
+
+
+
+
+ 
 
 # Funciones utilizadas para comparar elementos dentro de una lista
 def compareBeginDate(artist1, artist2):
