@@ -68,7 +68,7 @@ def menuDep():
     print("2. Departamento de Pinturas y Esculturas")
     print("3. Departamento de Fotografía")
     print("4. Departamento de Arquitectura y Diseño")
-    print("5. Departamento de Pintura y Escultura")
+    print("5. Departamento de Impresiones y Dibujos")
     print("6. Departamento de Cine")
     print("7. Coleccion Fluxus")
 
@@ -166,7 +166,8 @@ while True:
         for i in range(1, lt.size(lista)):
             if i < 4:
                 print("--------------------------------------------------------")
-                print (lt.getElement(lista, i))
+                print (lt.getElement(lista, i))     
+        print("********************************************************")      
         for i in range (lt.size(lista)-3, lt.size(lista)):
             if i <= lt.size(lista):
                 print("--------------------------------------------------------")
@@ -187,6 +188,7 @@ while True:
             if i < 4:
                 print("--------------------------------------------------------")
                 print (lt.getElement(lista_ordenada, i))
+        print("********************************************************") 
         for i in range (lt.size(lista_ordenada)-3, lt.size(lista_ordenada)):
             if i <= lt.size(lista_ordenada):
                 print('--------------------------------------------------------')
@@ -196,18 +198,23 @@ while True:
 
         nombre = input("Inserte el nombre del artista a consultar: " )
         obras_Artista = sortArtworksByCID(catalog, nombre)
-        cantidadObras, tecnicas, tecnica_mas_usada, obras_tecnicaUsada = obras_Artista
+        cantidadObras, tecnicas, tecnica_mas_usada, long, obras_tecnicaUsada = obras_Artista
         print("---------------------------------------------------------")
         print("---------------------------------------------------------")
         print("Informacion encontrada para al autor " + nombre)
         print("Cantidad obras :", cantidadObras)
         print("Tecnicas :", tecnicas)
         print("Tecnica mas usada :", tecnica_mas_usada)
-        print("Obras con tecnica mas usada :")
-        for i in obras_tecnicaUsada:
-            x =  str(i["Title"] + ", " + i["Date"] + ", " + i["Medium"] + ", " + i['Dimensions'])
-            print(x)
-            print('---------------------------------------------------------')
+        print("Obras con tecnica mas usada : " + str(long))
+        print("Primeras 5 obras con esa tecnica")
+        print("---------------------------------------------------------")
+        j = 0
+        for y in obras_tecnicaUsada:
+            x =  str(y["Title"] + " // " + y["Date"] + " // " + y["Medium"] + " // " + y['Dimensions'])
+            if j < 5:        
+                print(x)
+                print('---------------------------------------------------------')
+                j+=1
     
     elif int(inputs[0])==4:
 

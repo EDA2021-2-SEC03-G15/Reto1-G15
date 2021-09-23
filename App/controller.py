@@ -134,9 +134,9 @@ def sortArtworksByCID(catalog, nombre):
     cantidad_obras = lt.size(obrasArtista)
     tecnicas = model.contar_tecnicas(obrasArtista)
     obramayor = model.tecnica_mas_usada(obrasArtista)
-    obras_tecnicaUsada = model.obras_tecnicaUsada(obrasArtista, obramayor)
+    obras_tecnicaUsada, long = model.obras_tecnicaUsada(obrasArtista, obramayor)
 
-    return cantidad_obras, tecnicas, obramayor, obras_tecnicaUsada
+    return cantidad_obras, tecnicas, obramayor, long, obras_tecnicaUsada
 
 def sortbyNationality(catalog):
         

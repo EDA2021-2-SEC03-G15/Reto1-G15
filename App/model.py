@@ -105,6 +105,7 @@ def tecnica_mas_usada(obrasArtista):
     dic = {}
     x = ""
     for obra in range(len(obras)):
+
         iguales = 0
         #(obras[obra]["Medium"])
         for obra1 in range(len(obras)):
@@ -129,7 +130,8 @@ def obras_tecnicaUsada(obrasArtista, obramayor):
         if obrasA[i]["Medium"] == obramayor:
             lt.addLast(obras, obrasA[i])
     obrasTecnica = obras["elements"]
-    return obrasTecnica
+    long = len(obrasTecnica)
+    return obrasTecnica, long
 
 
 # Funciones utilizadas para comparar elementos dentro de una lista
@@ -216,9 +218,7 @@ def sortByNacionality(catalog):
                     contadora+=1
                     aux_dict[lt.getElement(catalog["artists"], j)['Nationality']] = aux_dict.get(lt.getElement(catalog["artists"], j)['Nationality'],0) + 1
                     if str(lt.getElement(catalog["artists"],j)["Nationality"]).lower()=="american":
-                         lt.addLast(artworks,lt.getElement(catalog["artworks"], i))
-
-            
+                         lt.addLast(artworks,lt.getElement(catalog["artworks"], i))  
             j+=1
         print (i)
 
@@ -245,6 +245,7 @@ def transportRules(catalog, department):
     i = 1
     total_obras =  0
     costo_total = 0
+
     while i <= lt.size(aw):
         awactual = lt.getElement(aw, i)
         if awactual["Department"]==department :
