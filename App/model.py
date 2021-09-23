@@ -24,7 +24,6 @@
  * Dario Correal - Version inicial
  """
 
-
 from DISClib.ADT.queue import newQueue
 from DISClib.ADT.indexminpq import size
 from decimal import Rounded
@@ -41,6 +40,7 @@ from DISClib.Algorithms.Sorting import shellsort as sh
 from DISClib.ADT import stack as sdt
 from DISClib.ADT import queue as q
 assert cf
+import math
 import datetime
 
 """
@@ -131,14 +131,22 @@ def obras_tecnicaUsada(obrasArtista, obramayor):
     return obrasTecnica
 
 
-
-
- 
-
 # Funciones utilizadas para comparar elementos dentro de una lista
 def compareBeginDate(artist1, artist2):
     
     return (int(artist1["BeginDate"])<int(artist2["BeginDate"]))
+
+def compareAlphabetically(artwork1, artwork2):
+
+    return (str(artwork1["Title"])<str(artwork2["Title"]))
+
+def comparebyConsID(art1, art2):
+
+    return (str(art1["ConstituentID"])<str(art2["CostituentID"]))
+
+def compareByCosts(art1,art2):
+
+    return (int(art1["Cost"])>int(art2["Cost"]))
 
 
 def cmpArtWorkByDateAcquired(artwork1, artwork2):
@@ -196,3 +204,124 @@ def sortByDate(catalog, alg):
 
     return sorted
 
+def sortByNacionality(catalog):
+    #"ConstituentID"
+    artworks = lt.newList(datastructure="ARRAY_LIST")
+    aux_dict = dict()
+    contadora = 0
+    i = 1
+    artistas_sort=mg.sort(catalog["artists"],sortByNacionality)
+    while i<=lt.size(catalog["artworks"]):
+        j = 1
+
+        while j<=lt.size(catalog["artists"]):
+            
+            a = lt.getElement(catalog["artworks"], i)['ConstituentID'][1:-1]
+            if ',' in a:
+                for id in range(len(a.split(','))):
+                    if id == 0: 
+                        if a.split(',')[id] == lt.getElement(catalog["artists"], j)['ConstituentID']:
+                            contadora+=1
+                            aux_dict[lt.getElement(catalog["artists"], j)['Nationality']] = aux_dict.get(lt.getElement(catalog["artists"], j)['Nationality'],0) + 1
+                            if str(lt.getElement(catalog["artists"],j)["Nationality"]).lower()=="american":
+                                lt.addLast(artworks,lt.getElement(catalog["artworks"], i))
+                    else:
+                        if a.split(',')[id][1:] == lt.getElement(catalog["artists"], j)['ConstituentID']:
+                            contadora+=1
+                            aux_dict[lt.getElement(catalog["artists"], j)['Nationality']] = aux_dict.get(lt.getElement(catalog["artists"], j)['Nationality'],0) + 1
+                            if str(lt.getElement(catalog["artists"],j)["Nationality"]).lower()=="american":
+                                lt.addLast(artworks,lt.getElement(catalog["artworks"], i))
+            else:
+                if lt.getElement(catalog["artworks"], i)['ConstituentID'][1:-1] == lt.getElement(catalog["artists"], j)['ConstituentID']:
+                    contadora+=1
+                    aux_dict[lt.getElement(catalog["artists"], j)['Nationality']] = aux_dict.get(lt.getElement(catalog["artists"], j)['Nationality'],0) + 1
+                    if str(lt.getElement(catalog["artists"],j)["Nationality"]).lower()=="american":
+                         lt.addLast(artworks,lt.getElement(catalog["artworks"], i))
+
+            
+            j+=1
+
+        i+=1
+    sorted = mg.sort(artworks, compareAlphabetically)
+    print (lt.size(sorted))
+    z = 0
+
+    for nationality in aux_dict:
+        if z<=9:
+            print ("%-20s %4.1f" % (nationality, aux_dict[nationality]))
+        z+=1
+    return sorted
+
+
+def transportRules(catalog, department):
+
+    listawCosts = lt.newList("ARRAY_LIST")
+    aw = catalog["artworks"]
+    i = 1
+    total_obras =  0
+    costo_total = 0
+    while i <= lt.size(aw):
+        awactual = lt.getElement(aw, i)
+        if awactual["Department"]==department :
+            costo = 48
+            total_obras += 1
+            if awactual["Diameter (cm)"]!="":
+                r = float(awactual["Diameter (cm)"])/200
+                area = (math.pi)*(r)**2
+                costo = area*72
+            
+            if awactual["Height (cm)"]!="" and awactual["Width (cm)"]!="":
+                if awactual["Height (cm)"]!="0" and awactual["Width (cm)"]!="0":
+
+                    h = float(awactual["Height (cm)"])/100
+                    w = float(awactual["Width (cm)"])/100
+                    area = h*w
+                    costo = area*72
+
+            if awactual["Depth (cm)"] !="" and awactual["Depth (cm)"] !="0":
+                if i == 47:
+                        print("")
+                d = (float(awactual["Depth (cm)"]))/100
+                h = (float(awactual["Height (cm)"]))/100
+                w = (float(awactual["Width (cm)"]))/100
+                if h == 0:
+                    area = d * w
+                    costo = area*72
+                if w == 0:
+                    area = d * h
+                    costo = area*72
+                vol = d*w*h
+                costov = vol*72
+                if costov > costo:
+                    costo = costov
+
+            if awactual["Weight (kg)"]!="":
+
+                we = float(awactual["Weight (kg)"])
+                costop = we * 72
+                if costop > costo:
+                    costo = costop
+                if costop > costov:
+                    costo = costop
+                elif costov > costop:
+                    costo = costov
+            
+            awactual["Cost"] = round(costo,2)
+
+            if awactual["Cost"] == "0":
+                awactual["Cost"] == 48
+            
+            costo_total += costo
+            
+            lt.addLast(listawCosts, awactual)
+        i+=1
+
+    sorted = mg.sort(listawCosts, compareByCosts)
+    mensaje = "Se transportarán ", total_obras, "obras por un costo de ", costo_total, "USD"
+    print (mensaje)
+    for i in range(1, lt.size(sorted)):
+        if i < 4:
+            print("--------------------------------------------------------")
+            print (lt.getElement(sorted, i))
+    return sorted
+    
