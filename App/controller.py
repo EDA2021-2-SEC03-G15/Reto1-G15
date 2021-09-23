@@ -25,7 +25,7 @@ import model
 import csv
 from DISClib.ADT import list as lt
 from DISClib.Algorithms.Sorting import selectionsort as merge
-
+import time
 """
 El controlador se encarga de mediar entre la vista y el modelo.
 """
@@ -73,6 +73,7 @@ def loadArtworks(catalog):
 
 def listarArtistas(catalog, inicio, fin):
     
+    inicio = time.process_time()
     model.ordenarArtistas(catalog["artists"])
 
     rango_artistas = lt.newList(datastructure="SINGLE_LINKED")
@@ -88,7 +89,9 @@ def listarArtistas(catalog, inicio, fin):
         if int(artista["BeginDate"]) >= inicio and int(artista["BeginDate"]) <= fin:
             lt.addLast(rango_artistas, artista)
         i+=1
-
+    fin = time.process_time()
+    tiempo =(fin - inicio)*1000
+    print("el t es ", tiempo)
     return rango_artistas
         
 def compareBeginDate(artist1, artist2):

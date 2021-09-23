@@ -42,6 +42,7 @@ from DISClib.ADT import queue as q
 assert cf
 import math
 import datetime
+import time
 
 """
 Se define la estructura de un catálogo de videos. El catálogo tendrá dos listas, una para los videos, otra para las categorias de
@@ -175,33 +176,12 @@ def sortByDate(catalog, alg):
 
     sub_list = lt.subList(catalog["artworks"], 1, (lt.size(catalog["artworks"])))
     sub_list = sub_list.copy()
-    elapsedtime = 0
-
-    if alg == 1:
-        start_time = time.process_time()
-        sorted = ins.sort(sub_list, cmpArtWorkByDateAcquired)
-        stop_time = time.process_time()
-        elapsedtime += (stop_time - start_time)*1000
-    
-    elif alg == 2:
-        start_time = time.process_time()
-        sorted = mg.sort(sub_list, cmpArtWorkByDateAcquired)
-        stop_time = time.process_time()
-        elapsedtime += (stop_time - start_time)*1000
-
-    elif alg == 3:
-        start_time = time.process_time()
-        sorted = qc.sort(sub_list, cmpArtWorkByDateAcquired)
-        stop_time = time.process_time()
-        elapsedtime += (stop_time - start_time)*1000
-
-    elif alg == 4:        
-        start_time = time.process_time()
-        sorted = sh.sort(sub_list, cmpArtWorkByDateAcquired)
-        stop_time = time.process_time()
-        elapsedtime += (stop_time - start_time)*1000
-
-
+    elapsedtime = 00
+    start_time = time.process_time()
+    sorted = mg.sort(sub_list, cmpArtWorkByDateAcquired)
+    stop_time = time.process_time()
+    elapsedtime += (stop_time - start_time)*1000
+    print("el t es ", elapsedtime)
     return sorted
 
 def sortByNacionality(catalog):
@@ -210,7 +190,7 @@ def sortByNacionality(catalog):
     aux_dict = dict()
     contadora = 0
     i = 1
-    artistas_sort=mg.sort(catalog["artists"],sortByNacionality)
+    inicio = time.process_time()
     while i<=lt.size(catalog["artworks"]):
         j = 1
 
@@ -240,8 +220,11 @@ def sortByNacionality(catalog):
 
             
             j+=1
+        print (i)
 
         i+=1
+        final = time.process_time()
+        tiempoalg = (final-inicio)*1000
     sorted = mg.sort(artworks, compareAlphabetically)
     print (lt.size(sorted))
     z = 0
@@ -250,11 +233,13 @@ def sortByNacionality(catalog):
         if z<=9:
             print ("%-20s %4.1f" % (nationality, aux_dict[nationality]))
         z+=1
+    print("el alg tardo", tiempoalg)
     return sorted
 
 
 def transportRules(catalog, department):
 
+    inicio = time.process_time()
     listawCosts = lt.newList("ARRAY_LIST")
     aw = catalog["artworks"]
     i = 1
@@ -315,12 +300,17 @@ def transportRules(catalog, department):
             
             lt.addLast(listawCosts, awactual)
         i+=1
+    final = time.process_time()
+
+    tiempoalg = (final - inicio)
 
     sorted = mg.sort(listawCosts, compareByCosts)
     mensaje = "Se transportarán ", total_obras, "obras por un costo de ", costo_total, "USD"
+    
     print (mensaje)
     for i in range(1, lt.size(sorted)):
         if i < 4:
             print("--------------------------------------------------------")
             print (lt.getElement(sorted, i))
+    print("El algoritmo tardó ", tiempoalg, "milisegundos en procesar")
     return sorted
