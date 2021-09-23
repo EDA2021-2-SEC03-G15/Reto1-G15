@@ -40,14 +40,14 @@ operación solicitada
 
 def printMenu():
     print("Bienvenido")
-    print("1- Cargar información en el catálogo")
-    print("2- Listar cronológicamente artistas")
-    print("3- Listar cronológicamente artworks")
-    print("4- Clasificar obras de un artista por técnica")
-    print("5- Clasificar obras de un artista por nacionalidad")
-    print("6- Transportar obras")
-    print("7- Proponer exposicion")
-    print("0- Salir")
+    print("0- Cargar información en el catálogo")
+    print("1- Listar cronológicamente artistas")
+    print("2- Listar cronológicamente artworks")
+    print("3- Clasificar obras de un artista por técnica")
+    print("4- Clasificar obras de un artista por nacionalidad")
+    print("5- Transportar obras")
+    print("6- Proponer exposicion")
+    print("7- Salir")
 
 def menuTAD():
     print("Seleccione el tipo de TAD sobre el que quiere cargar los archivos")
@@ -60,6 +60,17 @@ def menuOrd():
     print("2. Mergesort")
     print("3. Quicksort")
     print("4. Shellsort")
+
+
+def menuDep():
+    print("Seleccione el departamento que desea transportar")
+    print("1. Departamento de Medios y Presentaciones")
+    print("2. Departamento de Pinturas y Esculturas")
+    print("3. Departamento de Fotografía")
+    print("4. Departamento de Arquitectura y Diseño")
+    print("5. Departamento de Pintura y Escultura")
+    print("6. Departamento de Cine")
+    print("7. Coleccion Fluxus")
 
 catalog = None
 
@@ -91,6 +102,12 @@ def sortArtworksByCID(catalog, nombre):
 
     return controller.sortArtworksByCID(catalog, nombre)
 
+def sortbyNationality(catalog):
+    return controller.sortbyNationality(catalog)
+
+def transportCost(catalog, department):
+    return controller.transportCost(catalog, department)
+
 """
 Menu principal
 """
@@ -100,7 +117,7 @@ while True:
     printMenu()
     inputs = input('Seleccione una opción para continuar\n')
 
-    if int(inputs[0]) == 1:
+    if int(inputs[0]) == 0:
 
         catalog = initCatalog("ARRAY_LIST")  
 
@@ -136,7 +153,7 @@ while True:
             j-=1
   
 
-    elif int(inputs[0]) == 2:
+    elif int(inputs[0]) == 1:
 
         print("Digite las fechas inciales y finales a consultar")
         date1 = int(input("Año inicial: " ))
@@ -155,7 +172,7 @@ while True:
                 print("--------------------------------------------------------")
                 print(lt.getElement(lista, i))
 
-    elif int(inputs[0]) == 3:
+    elif int(inputs[0]) == 2:
 
 #        size = int(input("Seleccione el tamaño de la muestra: \n"))
 #        menuOrd()
@@ -175,7 +192,7 @@ while True:
                 print('--------------------------------------------------------')
                 print(lt.getElement(lista_ordenada, i))
 
-    elif int(inputs[0]) == 4:  
+    elif int(inputs[0]) == 3:  
 
         nombre = input("Inserte el nombre del artista a consultar: " )
         obras_Artista = sortArtworksByCID(catalog, nombre)
@@ -191,7 +208,40 @@ while True:
             x =  str(i["Title"] + ", " + i["Date"] + ", " + i["Medium"] + ", " + i['Dimensions'])
             print(x)
             print('---------------------------------------------------------')
+    
+    elif int(inputs[0])==4:
 
+        sorted = sortbyNationality(catalog)
+        i = 1
+        while i < 4:
+            print (str(lt.getElement(sorted, i)))
+            i+=1
+        
+        print("Ultimos 3 Artworks")
+        j = 2
+        while j >= 0:
+            print (str(lt.getElement(sorted,lt.size(sorted)-j)))
+            j-=1
+    elif int(inputs[0]) == 5:
+
+        print ("Seleccione el departamento que desea transportar: \n")
+        menuDep()
+        inputDep = int(input())
+        if inputDep==1:
+            transportCost(catalog, "Media and Performance")
+        elif inputDep==2:
+            transportCost(catalog, "Painting & Sculpture")
+        elif inputDep==3:
+            transportCost(catalog, "Photography")
+        elif inputDep==4:
+            transportCost(catalog, "Architecture & Design")
+        elif inputDep==5:
+            transportCost(catalog, "Drawings & Prints")
+        elif inputDep==6:
+            transportCost(catalog, "Film")
+        elif inputDep==7:
+            transportCost(catalog, "Fluxus Collection")
     else:
         sys.exit(0)
+
 sys.exit(0)
