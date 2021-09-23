@@ -212,7 +212,7 @@ def sortByNacionality(catalog):
     aux_dict = dict()
     contadora = 0
     i = 1
-    artistas_sort=mg.sort(catalog["artists"],sortByNacionality)
+
     while i<=lt.size(catalog["artworks"]):
         j = 1
 
@@ -238,9 +238,7 @@ def sortByNacionality(catalog):
                     contadora+=1
                     aux_dict[lt.getElement(catalog["artists"], j)['Nationality']] = aux_dict.get(lt.getElement(catalog["artists"], j)['Nationality'],0) + 1
                     if str(lt.getElement(catalog["artists"],j)["Nationality"]).lower()=="american":
-                         lt.addLast(artworks,lt.getElement(catalog["artworks"], i))
-
-            
+                         lt.addLast(artworks,lt.getElement(catalog["artworks"], i))  
             j+=1
 
         i+=1
@@ -262,6 +260,7 @@ def transportRules(catalog, department):
     i = 1
     total_obras =  0
     costo_total = 0
+
     while i <= lt.size(aw):
         awactual = lt.getElement(aw, i)
         if awactual["Department"]==department :

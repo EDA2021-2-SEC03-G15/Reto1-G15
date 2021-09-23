@@ -68,7 +68,7 @@ def menuDep():
     print("2. Departamento de Pinturas y Esculturas")
     print("3. Departamento de Fotografía")
     print("4. Departamento de Arquitectura y Diseño")
-    print("5. Departamento de Pintura y Escultura")
+    print("5. Departamento de Impresiones y Dibujos")
     print("6. Departamento de Cine")
     print("7. Coleccion Fluxus")
 
@@ -166,7 +166,8 @@ while True:
         for i in range(1, lt.size(lista)):
             if i < 4:
                 print("--------------------------------------------------------")
-                print (lt.getElement(lista, i))
+                print (lt.getElement(lista, i))     
+        print("********************************************************")      
         for i in range (lt.size(lista)-3, lt.size(lista)):
             if i <= lt.size(lista):
                 print("--------------------------------------------------------")
@@ -187,6 +188,7 @@ while True:
             if i < 4:
                 print("--------------------------------------------------------")
                 print (lt.getElement(lista_ordenada, i))
+        print("********************************************************") 
         for i in range (lt.size(lista_ordenada)-3, lt.size(lista_ordenada)):
             if i <= lt.size(lista_ordenada):
                 print('--------------------------------------------------------')
@@ -204,11 +206,12 @@ while True:
         print("Tecnicas :", tecnicas)
         print("Tecnica mas usada :", tecnica_mas_usada)
         print("Obras con tecnica mas usada : " + str(long))
-        print('---------------------------------------------------------')
+        print("Primeras 5 obras con esa tecnica")
+        print("---------------------------------------------------------")
         j = 0
         for y in obras_tecnicaUsada:
             x =  str(y["Title"] + " // " + y["Date"] + " // " + y["Medium"] + " // " + y['Dimensions'])
-            if j < 11:        
+            if j < 5:        
                 print(x)
                 print('---------------------------------------------------------')
                 j+=1
