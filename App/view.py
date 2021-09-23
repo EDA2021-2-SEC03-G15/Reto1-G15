@@ -196,18 +196,22 @@ while True:
 
         nombre = input("Inserte el nombre del artista a consultar: " )
         obras_Artista = sortArtworksByCID(catalog, nombre)
-        cantidadObras, tecnicas, tecnica_mas_usada, obras_tecnicaUsada = obras_Artista
+        cantidadObras, tecnicas, tecnica_mas_usada, long, obras_tecnicaUsada = obras_Artista
         print("---------------------------------------------------------")
         print("---------------------------------------------------------")
         print("Informacion encontrada para al autor " + nombre)
         print("Cantidad obras :", cantidadObras)
         print("Tecnicas :", tecnicas)
         print("Tecnica mas usada :", tecnica_mas_usada)
-        print("Obras con tecnica mas usada :")
-        for i in obras_tecnicaUsada:
-            x =  str(i["Title"] + ", " + i["Date"] + ", " + i["Medium"] + ", " + i['Dimensions'])
-            print(x)
-            print('---------------------------------------------------------')
+        print("Obras con tecnica mas usada : " + str(long))
+        print('---------------------------------------------------------')
+        j = 0
+        for y in obras_tecnicaUsada:
+            x =  str(y["Title"] + " // " + y["Date"] + " // " + y["Medium"] + " // " + y['Dimensions'])
+            if j < 11:        
+                print(x)
+                print('---------------------------------------------------------')
+                j+=1
     
     elif int(inputs[0])==4:
 

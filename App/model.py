@@ -104,6 +104,7 @@ def tecnica_mas_usada(obrasArtista):
     dic = {}
     x = ""
     for obra in range(len(obras)):
+
         iguales = 0
         #(obras[obra]["Medium"])
         for obra1 in range(len(obras)):
@@ -128,7 +129,8 @@ def obras_tecnicaUsada(obrasArtista, obramayor):
         if obrasA[i]["Medium"] == obramayor:
             lt.addLast(obras, obrasA[i])
     obrasTecnica = obras["elements"]
-    return obrasTecnica
+    long = len(obrasTecnica)
+    return obrasTecnica, long
 
 
 # Funciones utilizadas para comparar elementos dentro de una lista
