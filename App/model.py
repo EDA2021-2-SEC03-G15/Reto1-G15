@@ -215,16 +215,15 @@ def sortByNacionality(catalog):
                                 lt.addLast(artworks,lt.getElement(catalog["artworks"], i))
             else:
                 if lt.getElement(catalog["artworks"], i)['ConstituentID'][1:-1] == lt.getElement(catalog["artists"], j)['ConstituentID']:
-                    contadora+=1
+                    contadora+=1 
                     aux_dict[lt.getElement(catalog["artists"], j)['Nationality']] = aux_dict.get(lt.getElement(catalog["artists"], j)['Nationality'],0) + 1
                     if str(lt.getElement(catalog["artists"],j)["Nationality"]).lower()=="american":
                          lt.addLast(artworks,lt.getElement(catalog["artworks"], i))  
             j+=1
-        print (i)
 
         i+=1
-        final = time.process_time()
-        tiempoalg = (final-inicio)*1000
+    final = time.process_time()
+    tiempoalg = (final-inicio)*1000
     sorted = mg.sort(artworks, compareAlphabetically)
     print (lt.size(sorted))
     z = 0
