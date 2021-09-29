@@ -123,7 +123,6 @@ def sortArtworksByCID(catalog, nombre):
     artworks = (catalog["artworks"])
     ID_Artista = model.FindIDArtist(catalog, nombre)
     obrasArtista = lt.newList(datastructure="ARRAY_LIST")
-    c = False
     for i in range(lt.size(artworks)):
         artwork = lt.getElement(artworks, i)
         if artwork['ConstituentID'][1:-1] == ID_Artista:

@@ -99,10 +99,9 @@ def contar_tecnicas(obrasArtista):
 
 def tecnica_mas_usada(obrasArtista):
 
-    tecnica_mas_usada = lt.newList(datastructure="ARRAY_LIST")
+
     obras = obrasArtista["elements"]
     dic = {}
-    x = ""
     for obra in range(len(obras)):
 
         iguales = 0
